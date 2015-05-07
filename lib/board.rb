@@ -17,7 +17,7 @@ class Board
 
   def place_ship ship, coords, orientation
     ship_fit ship, coords, orientation
-    fail 'boats have overlapped!' unless space_clear? coords
+    fail 'boats have overlapped!' unless space_clear? ship, coords, orientation
     insert_ship(ship, coords, orientation)
   end
 
@@ -44,8 +44,19 @@ class Board
     coords.slice(0)
   end
 
-  def space_clear? coords
-    grid_read(coords) == '0'
+  def space_clear? ship, coords, orientation
+    # grid_read(coords) == '0'
+    if orientation == 'v'
+      ship.length.times do |index|
+        fail 'boats have overlapped!' if @grid[x_axis(coords)+index][y_axis(coords)] != '0'
+      end
+    elsif orientation == 'h'
+      y_val = y_axis(coords)
+      ship.length.times do
+        fail 'boats have overlapped!' if @grid[x_axis(coords)][y_val] != '0'
+        y_val = y_val.next
+      end
+    end
   end
 
   def grid_read coords

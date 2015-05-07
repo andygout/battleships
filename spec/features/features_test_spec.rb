@@ -22,11 +22,18 @@ feature 'Set up a game of battleships' do
     expect { board.place_ship destroyer, 'J10', 'h'}.to raise_error 'boat is off the grid!'
   end
 
-  scenario 'ensure ships do not overlap' do
+  scenario 'ensure ships do not overlap (both ships given same starting coordinates)' do
     dinghy1 = Ship.new 1
     board.place_ship dinghy1, 'A1', 'v'
     dinghy2 = Ship.new 1
     expect { board.place_ship dinghy2, 'A1', 'h' }.to raise_error 'boats have overlapped!'
+  end
+
+  scenario 'ensure ships do not overlap (both ships given separate coordinates)' do
+    dinghy1 = Ship.new 3
+    board.place_ship dinghy1, 'A2', 'h'
+    dinghy2 = Ship.new 3
+    expect { board.place_ship dinghy2, 'B1', 'v' }.to raise_error 'boats have overlapped!'
   end
 
   scenario 'ensure ship occupies all appropriate grid squares (vertically)' do
