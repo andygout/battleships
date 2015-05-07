@@ -2,8 +2,6 @@
 
 TO DO:-
 -------
-* Once placed, ship cannot be placed again.
-
 
 ```
 As a player

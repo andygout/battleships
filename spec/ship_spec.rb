@@ -12,4 +12,15 @@ describe Ship do
     expect(destroyer.length != aircraft_carrier.length).to eq true
   end
 
+  it 'loses health when hit' do
+    destroyer = Ship.new(6)
+    destroyer.hit
+    expect(destroyer.health).to eq(5)
+  end
+
+  it 'can report if it is sunk' do
+    subject.hit
+    expect(subject).to be_sunk
+  end
+
 end

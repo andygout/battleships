@@ -16,5 +16,17 @@ describe Board do
     expect(subject.grid_read('A1')).to eq ship
   end
 
+  it 'is expected to tell a ship when it has been hit' do
+    ship = double :ship, length: 3, class: Ship
+    expect(ship).to receive(:hit).and_return(true)
+    subject.place_ship(ship, 'A1', 'v')
+    subject.fire('A3')
+  end
 
+  it 'should not hit a ship if a sea gridspace is hit' do
+    ship = double :ship, length: 3, class: Ship
+    expect(ship).to_not receive(:hit)
+    subject.place_ship(ship, 'A1', 'v')
+    subject.fire('E5')
+  end
 end

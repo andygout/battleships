@@ -4,8 +4,13 @@ require 'ship'
 
 feature 'Set up a game of battleships' do
 
+  let(:player) { Player.new }
   let(:board) { Board.new }
   let(:ship) { Ship.new }
+
+  scenario 'player is allocated a fleet of ships' do
+    expect(player.ships.count).to eq 8
+  end
 
   scenario 'put a ship on the board with a given orientation' do
     board.place_ship ship, 'A1', 'v'
@@ -50,12 +55,25 @@ end
 feature 'Playing a game of battleships' do
 
   let(:board) { Board.new }
-  let(:ship) { Ship.new }
+  let(:ship) { Ship.new}
 
   scenario 'ships can be fired at' do
     board.place_ship ship, 'B7', 'h'
     board.fire 'B7'
     expect(board.grid_read 'B7').to eq '*'
+  end
+
+  scenario 'ship can register a hit' do
+    aircraft_carrier = Ship.new 6
+    board.place_ship aircraft_carrier, 'A1', 'h'
+    board.fire 'A1'
+    expect(aircraft_carrier.health).to eq 5
+  end
+
+  scenario 'ship can report if it is sunk' do
+    board.place_ship ship, 'A1', 'h'
+    board.fire 'A1'
+    expect(ship).to be_sunk
   end
 
 end

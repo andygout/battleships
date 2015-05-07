@@ -81,7 +81,7 @@ class Board
   end
 
   def fire coords
+    grid_read(coords).hit if grid_read(coords).class == Ship
     @grid[x_axis(coords)][y_axis(coords)] = '*'
   end
-
 end
