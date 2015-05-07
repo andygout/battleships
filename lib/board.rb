@@ -18,6 +18,7 @@ class Board
   def place_ship ship, coords, orientation
     ship_fit ship, coords, orientation
     fail 'boats have overlapped!' unless space_clear? ship, coords, orientation
+    @grid.each { |row| fail 'ship already on grid!' if row.has_value?(ship) }
     insert_ship(ship, coords, orientation)
   end
 

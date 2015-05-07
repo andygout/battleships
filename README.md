@@ -2,8 +2,7 @@
 
 TO DO:-
 -------
-* Test for overlapping ships when placing.
-* Once placed, ship cannot be placed any further.
+* Once placed, ship cannot be placed again.
 
 
 ```
